@@ -4,8 +4,8 @@ from category import categoryFruits
 from random import randint
 
 def hangman():
-
-    while(True):
+    select = "y"
+    while(select == "y"):
         showCategory()
 
         categoryInput = input("Category >> ")
