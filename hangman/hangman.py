@@ -60,27 +60,38 @@ def play(categoryInput):
         character = input("Guess the character >> ").lower()
         print()
 
-        for i in range (len(answer)):
-            if ((character in resultList) and isGuessed):
-                print("\t\t\"" + character + "\"" + " already guessed.")
-                print()
+        if (isCharacter(character)):
+            for i in range (len(answer)):
+                if ((character in resultList) and isGuessed):
+                    print("\t\t\"" + character + "\"" + " already guessed.")
+                    print()
+                    life -= 1
+                    score -= 10 if (score - 10 >= 0) else 0
+                    isGuessed = False
+                    break
+                elif (character == answer[i]):
+                    resultList[i] = character
+                    score += 10
+                    isGuessed = False
+
+            if(isGuessed):
                 life -= 1
                 score -= 10 if (score - 10 >= 0) else 0
-                isGuessed = False
-                break
-            elif (character == answer[i]):
-                resultList[i] = character
-                score += 10
-                isGuessed = False
-
-        if(isGuessed):
-            life -= 1
-            score -= 10 if (score - 10 >= 0) else 0
-            addGuessedToList(character, wrongGuessed)
+                addGuessedToList(character, wrongGuessed)
 
     else:
         checkWinOrLose(life, answer, score)
         
+def isCharacter(character):
+    if (len(character) == 1):
+        if (character.isalpha()):
+            return True
+        else:
+            print("\t\tError : Don't input digit.\n")
+            return False
+    else:
+        print("\t\tError : Please input a character.\n")
+        return False
 
 def createList(text):
     resultList = []
