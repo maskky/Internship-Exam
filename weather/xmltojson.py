@@ -3,13 +3,13 @@ import xmltodict
 import os
  
 def xmltojson():
-
-    xmlData = openXMLFile(input("Enter XML file (Ex. \"input.xml\") >> "))
+    filename = input("Enter XML file (Ex. \"weather.xml\") >> ")
+    xmlData = openXMLFile(filename)
 
     if(not xmlData == ""):
         jsonData = convert(xmlData)
         jsonData = editFormat(jsonData, "\n")
-        createJSONFile(jsonData, "output")
+        createJSONFile(jsonData, filename.replace(".xml", ".json"))
 
 def openXMLFile(filename):
     if (os.path.exists(filename)):
@@ -25,10 +25,10 @@ def convert(xmlData):
     return jsonData
 
 def createJSONFile(jsonData, filename):
-    CONST_FILE_TYPE = "json"
-    with open(filename + "." + CONST_FILE_TYPE, "w") as fileOutput:
+    with open(filename, "w") as fileOutput:
         fileOutput.write(jsonData)
         print("Convert XML to JSON Success.")
+        print("Output file :", filename)
 
 def editFormat(data, character):
     data = data[0 : data.find('\n')] + data[data.find('\n', data.find('\n') + 2):data.rfind('\n')]
