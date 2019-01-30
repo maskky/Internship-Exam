@@ -14,12 +14,13 @@ def hangman():
         checkInput(categoryInput)
 
 def checkInput(categoryInput):
+    CONST_MIN_CATEGORY = 0
+    CONST_MAX_CATEGORY = 3
     try:
         categoryInput = int(categoryInput)
-        play(categoryInput)
+        play(categoryInput) if (CONST_MIN_CATEGORY < categoryInput <= CONST_MAX_CATEGORY) else print("\t\tError : Please input 1-3.\n")
     except ValueError:
-        print("\t\tError : Please input 1-3.")
-        print()
+        print("\t\tError : Please input 1-3.\n")
 
 def showCategory():
     print("Select Category (Input 1-3)")
@@ -40,7 +41,9 @@ def prepare(rand, categoryInput):
     print()
 
 def play(categoryInput):
-    rand = randint(0,4)
+    CONST_MIN_CHOICE = 0
+    CONST_MAX_CHOICE = 4
+    rand = randint(CONST_MIN_CHOICE, CONST_MAX_CHOICE)
     answer = prepare(rand, categoryInput)
     answerLen = len(answer)
     resultList = createList(answer)
@@ -98,7 +101,7 @@ def addGuessedToList(character, wrongGuessed):
 def checkWinOrLose(life, answer, score):
     if (life > 0):
         print("PROOF! Your score is : %d" % score)
-        print("The answer is : " + answer + ".")
+        print("The answer is : " + answer)
     else:
         print("Game Over.")
 
