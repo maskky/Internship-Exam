@@ -3,14 +3,15 @@ import xmltodict
  
 def xmltojson():
 
-    xmlData = openXMLFile("input.xml")
+    xmlData = openXMLFile("input")
     jsonData = convert(xmlData)
     jsonData = editFormat(jsonData, "\n")
  
-    createXMLFile(jsonData)
+    createXMLFile(jsonData, "output")
 
 def openXMLFile(filename):
-    with open(filename, "r") as fileOpen:
+    CONST_FILE_TYPE = "xml"
+    with open(filename + "." + CONST_FILE_TYPE, "r") as fileOpen:
         return fileOpen.read()
 
 def convert(xmlData):
@@ -19,7 +20,8 @@ def convert(xmlData):
     return jsonData
 
 def createXMLFile(jsonData, filename):
-    with open(filename, "w") as fileOutput:
+    CONST_FILE_TYPE = "json"
+    with open(filename + "." + CONST_FILE_TYPE, "w") as fileOutput:
         fileOutput.write(jsonData)
 
 def editFormat(data, character):
